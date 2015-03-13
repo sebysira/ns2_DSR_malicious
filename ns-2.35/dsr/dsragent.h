@@ -136,6 +136,7 @@ private:
   int off_sr_;
 
 	double perc_malicious;		//percentuale di essere cattivo
+	int id_node;
 
   // will eventually need to handle multiple infs, but this is okay for
   // now 1/28/98 -dam

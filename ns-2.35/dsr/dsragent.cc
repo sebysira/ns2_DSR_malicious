@@ -448,11 +448,12 @@ DSRAgent::command(int argc, const char*const* argv)
 {
   TclObject *obj;  
 // settiamo la percentuale di essere cattivo
-  if (argc == 3 && strcmp(argv[1],"malicious")==0){
+  if (argc == 4 && strcmp(argv[1],"malicious")==0){
 
 
     	perc_malicious = atof(argv[2]);
-    	printf("Set percentage =  %f\n", perc_malicious);
+      id_node = atoi(argv[3]);
+    	printf("Nodo %d Set percentage =  %f\n", id_node, perc_malicious);
     	return TCL_OK;
 
   }
@@ -616,20 +617,6 @@ DSRAgent::recv(Packet* packet, Handler*)
   hdr_ip *iph =  hdr_ip::access(packet);
   hdr_cmn *cmh =  hdr_cmn::access(packet);
 
-	// se un numero random è < perc_malicious ,buttiamo il pacchetto
-	if(perc_malicious>0){
-		srand(time(NULL));
-		float r = (float) drand48();
-  	if(r<perc_malicious){
-  		printf("Sto buttando il pacchetto!\n");
-  		drop(packet,DROP_RTR_ROUTE_LOOP);
-  		return;
-  	}
-  	else{
-  			printf("Sto mandando il pacchetto!\n"); 		
-  	}
-  }
-
   // special process for GAF
   if (cmh->ptype() == PT_GAF) {
     if (iph->daddr() == (int)IP_BROADCAST) { 
@@ -699,6 +686,7 @@ DSRAgent::recv(Packet* packet, Handler*)
 	}
       else
 	{ // we're not the intended final recpt, but we're a hop
+
 	  handleForwarding(p);
 	}
     }
@@ -711,7 +699,6 @@ DSRAgent::recv(Packet* packet, Handler*)
 
  done:
   assert(p.pkt == 0);
-  
   p.pkt = 0;
   return;
 }
@@ -1020,8 +1007,31 @@ DSRAgent::handleForwarding(SRPacket &p)
     return;
   }
 
+	// se un numero random è < perc_malicious ,buttiamo il pacchetto
+	if(perc_malicious>0){
+		srand(time(NULL));
+		float r = (float) drand48();
+  	if(r<perc_malicious){
+      printf("Perc_malicious: %f R: %f !\n",perc_malicious,r);
+  		if(srh->route_reply() || srh->route_request()){
+  			sendOutPacketWithRoute(p,false);
+  			printf("Nodo %d: Inoltro route request o route reply! Da %lu a %lu\n",id_node, p.src.addr,p.route[p.route.index()].addr);
+  		}
+  		else{
+  			drop(p.pkt);
+  			printf("-- Nodo %d Sto buttando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
+  		}
+  	}
+  	else{
+  			printf("++ Nodo %d Sto mandando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr); 		
+  			sendOutPacketWithRoute(p, false);
+  	}
+  }
+  else{
+  	printf("Nodo %d: Non sono malicious e mando pkt da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
+  	sendOutPacketWithRoute(p, false);
+  }
   // now forward the packet...
-  sendOutPacketWithRoute(p, false);
 }
 
 void
