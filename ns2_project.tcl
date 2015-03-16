@@ -22,9 +22,9 @@ set val(ifq)            CMUPriQueue
 set val(ifq)            Queue/DropTail/PriQueue
 }
 
-set val(x)	1000
-set val(y)	1000
-set val(nn)	20				   ;# number of nodes
+set val(x)	800
+set val(y)	800
+set val(nn)	15				   ;# number of nodes
 
 # Create simulator
 set ns [new Simulator]
@@ -77,12 +77,12 @@ for {set i 0} {$i<$val(nn)} {incr i} {
 set udp(0) [new Agent/UDP]
 $ns attach-agent $node(0) $udp(0)
 set null(0) [new Agent/Null]
-$ns attach-agent $node(14) $null(0)
+$ns attach-agent $node(4) $null(0)
 set cbr(0) [new Application/Traffic/CBR]
 $cbr(0) set packetSize_ 512
-$cbr(0) set interval_ 0.2
+$cbr(0) set interval_ 0.25
 $cbr(0) set random_ 1
-$cbr(0) set maxpkts_ 10000
+$cbr(0) set maxpkts_ 100000
 $cbr(0) attach-agent $udp(0)
 
 $ns connect $udp(0) $null(0)

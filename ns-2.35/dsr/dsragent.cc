@@ -682,11 +682,21 @@ DSRAgent::recv(Packet* packet, Handler*)
 
       if (srh->route_request())
 	{ // propagate a route_request that's not for us
+		//printf("Nodo %d: Sto passando una route request.\n", id_node);
 	  handleRouteRequest(p);
 	}
       else
 	{ // we're not the intended final recpt, but we're a hop
-
+		if(perc_malicious>0){
+		srand(time(NULL));
+		float r = (float) drand48();
+	  	if(r<perc_malicious){
+	  	  //printf("Nodo %d: Sto droppando un pacchetto.\n", id_node);
+	      drop(p.pkt, DROP_RTR_ROUTE_LOOP);
+	      return;
+	  	}
+	  }
+	  //printf("Nodo %d: Sto passando alla handle forwarding.\n", id_node);
 	  handleForwarding(p);
 	}
     }
@@ -1008,30 +1018,31 @@ DSRAgent::handleForwarding(SRPacket &p)
   }
 
 	// se un numero random è < perc_malicious ,buttiamo il pacchetto
-	if(perc_malicious>0){
+	/*if(perc_malicious>0){
 		srand(time(NULL));
 		float r = (float) drand48();
-  	if(r<perc_malicious){
-      printf("Perc_malicious: %f R: %f !\n",perc_malicious,r);
-  		if(srh->route_reply() || srh->route_request()){
-  			sendOutPacketWithRoute(p,false);
-  			printf("Nodo %d: Inoltro route request o route reply! Da %lu a %lu\n",id_node, p.src.addr,p.route[p.route.index()].addr);
-  		}
-  		else{
-  			drop(p.pkt);
-  			printf("-- Nodo %d Sto buttando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
-  		}
-  	}
-  	else{
-  			printf("++ Nodo %d Sto mandando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr); 		
-  			sendOutPacketWithRoute(p, false);
-  	}
-  }
-  else{
-  	printf("Nodo %d: Non sono malicious e mando pkt da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
-  	sendOutPacketWithRoute(p, false);
-  }
+	  	if(r<perc_malicious){
+	      printf("Perc_malicious: %f R: %f !\n",perc_malicious,r);
+	  		if(srh->route_reply() || srh->route_request()){
+	  			sendOutPacketWithRoute(p,false);
+	  			printf("Nodo %d: Inoltro route request o route reply! Da %lu a %lu\n",id_node, p.src.addr,p.route[p.route.index()].addr);
+	  		}
+	  		else{
+	  			drop(p.pkt, DROP_RTR_ROUTE_LOOP);
+	  			printf("-- Nodo %d Sto buttando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
+	  		}
+	  	}
+	  	else{
+	  			printf("++ Nodo %d Sto mandando il pacchetto! Da %lu a %lu\n",id_node, p.src.addr,p.dest.addr); 		
+	  			sendOutPacketWithRoute(p, false);
+	  	}
+	  }
+	  else{
+	  	printf("Nodo %d: Non sono malicious e mando pkt da %lu a %lu\n",id_node, p.src.addr,p.dest.addr);
+	  	sendOutPacketWithRoute(p, false);
+	  }*/
   // now forward the packet...
+	  	sendOutPacketWithRoute(p, false);
 }
 
 void
