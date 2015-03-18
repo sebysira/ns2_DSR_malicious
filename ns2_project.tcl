@@ -9,7 +9,7 @@ set val(ifqlen)         50                         ;# max packets in ifq
 set val(rxPower)        1.11                      ;#  (in W)
 set val(txPower)        1.11                      ;#  (in W)
 set val(energymodel)    EnergyModel               ;# 
-set val(initialenergy)  150                       ;#  (in Joule)
+set val(initialenergy)  250                       ;#  (in Joule)
 set val(sleeppower)     0.02                      ;# energia consumata in stato di sleep
 set val(tp)             0.03                      ;# Energia consumata per la transizione dallo stato di sleep a quello di attivita'...
 #set val(ifq)            Queue/DropTail/PriQueue    ;# interface queue type
@@ -76,17 +76,25 @@ for {set i 0} {$i<$val(nn)} {incr i} {
 
 set udp(0) [new Agent/UDP]
 $ns attach-agent $node(0) $udp(0)
+
 set null(0) [new Agent/Null]
 $ns attach-agent $node(4) $null(0)
-set cbr(0) [new Application/Traffic/CBR]
-$cbr(0) set packetSize_ 512
-$cbr(0) set interval_ 0.25
-$cbr(0) set random_ 1
-$cbr(0) set maxpkts_ 100000
-$cbr(0) attach-agent $udp(0)
+
+set vbr [new Application/Traffic/VBR]
+$vbr set rate_ 224Kb
+$vbr set rate_dev_ 0.25
+$vbr set rate_time_ 2.0
+$vbr set burst_time_ 0.5
+$vbr set n_o_changes_ 10
+$vbr set time_dev_ 0.5
+$vbr set constant_ false
+$vbr set maxrate_ 378Kb
+$vbr set packetSize_ 210
+$vbr set maxpkts_ 268435456
+$vbr attach-agent $udp(0)
 
 $ns connect $udp(0) $null(0)
-$ns at 1.0 "$cbr(0) start"
+$ns at 1.0 "$vbr start"
 
 # Define node initial position in nam
 for {set i 0} {$i < $val(nn)} {incr i} {
@@ -95,7 +103,7 @@ for {set i 0} {$i < $val(nn)} {incr i} {
 
 $ns at 0 "load_perc"
 # Tell ns/nam the simulation stop time
-$ns at 1000 "finish"
+$ns at 200 "finish"
 
 proc load_perc {} {
         global node val ns
