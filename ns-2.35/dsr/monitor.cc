@@ -56,7 +56,7 @@ void Monitor::flushCache(nsaddr_t address) {
   delete l;
 }
 
-void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet) {
+void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet, char * net_id) {
   // check that we have a cache of packets sent to this node,
   // hence we will be expecting them to forward our packets if they
   // require forwarding
@@ -88,7 +88,7 @@ void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet) {
 
 
       // since they forwarded our packet, we register a positive event
-      registerPositiveEvent(sender_address);
+      registerPositiveEvent(sender_address, net_id);
     }    
 
   } 
@@ -108,13 +108,13 @@ void Monitor::checkPacketCache(nsaddr_t address) {
   }
 }
 
-void Monitor::registerPositiveEvent(nsaddr_t address) {
+void Monitor::registerPositiveEvent(nsaddr_t address, char * net_id) {
   BankEntry* entry = bank->getBankEntry(address);
   if(entry != NULL) {
 
 
     // increase the # of packets they have forwarded for us
-    entry->incTheirForwardingCount();
-    //cout << "  [" << Scheduler::instance().clock() << "] increasing forwarding count for  node #" << address << " :: theirForwardingCount = " << entry->getTheirForwardingCount() << endl << flush;  
+    entry->incPacchettiConfermati();
+    cout << "[" << Scheduler::instance().clock() << "] node #" << net_id << " incrementa pacchetti confermati per il nodo #" << address << " :: incPacchettiConfermati = " << entry->getPacchettiConfermati() << endl << flush;  
   }
 }

@@ -78,10 +78,10 @@ class Monitor
   // is the same as one in our cache. if it is,
   // we remove it from the cache and return true.
   // if its not the same, return false
-  void handleTap(nsaddr_t sender, const Packet* packet);
+  void handleTap(nsaddr_t sender, const Packet* packet, char * net_id);
   // called when a positive event occurs, such as a neighbour
   // forwarding our traffic for us.
-  void registerPositiveEvent(nsaddr_t address);
+  void registerPositiveEvent(nsaddr_t address, char * net_id);
   // called when a negative event occurs, such as a neighbour
   // not forwarding our traffic
   void registerNegativeEvent(nsaddr_t address);

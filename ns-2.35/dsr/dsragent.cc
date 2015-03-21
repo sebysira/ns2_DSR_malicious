@@ -1044,20 +1044,20 @@
         //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " maliciously sended packet received from node #" << srh->get_prev_addr() << endl << flush;
         
       // now forward the packet...
-        nsaddr_t prev_hop = srh->get_prev_addr();
+        //nsaddr_t prev_hop = srh->get_prev_addr();
         nsaddr_t next_hop = srh->get_next_addr();
-        cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
+        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
         // first: check if our bank contains this node yet
-        if(!myBank.contains(prev_hop)) {
+        if(!myBank.contains(next_hop)) {
         // if not, create a new account
-        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << prev_hop << endl << flush;
-        myBank.addNewEntry(prev_hop);
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
+        myBank.addNewEntry(next_hop);
       }
-        BankEntry* entry = myBank.getBankEntry(prev_hop);
+        BankEntry* entry = myBank.getBankEntry(next_hop);
         if(entry != NULL) {
-          entry->incMyForwardingCount();
+          entry->incPacchettiInviati();
         }
-      cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " increased its forwarding count for node #" << prev_hop << " :: myForwardingCount = " << entry->getMyForwardingCount() << endl << flush;
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
       }
     sendOutPacketWithRoute(p, false);
   }
@@ -2133,7 +2133,7 @@
     // find out who is sending this packet
     nsaddr_t prev_hop = srh->get_prev_addr();
     //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " is gona investigate tap'd packet from " << prev_hop << " " << endl << flush;
-    myMonitor.handleTap(prev_hop, packet);
+    myMonitor.handleTap(prev_hop, packet, net_id.dump());
   }
 
     // don't trouble me with my own packets
