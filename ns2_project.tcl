@@ -113,7 +113,9 @@ for {set i 0} {$i < $val(nn)} {incr i} {
 }
 
 proc load_perc {} {
-    global node val ns
+    global node val
+    set ns [Simulator instance]
+
     set fp [open "percentage.txt" "r"]
         
     for {set i 0} {$i < $val(nn)} {incr i} {
@@ -123,9 +125,23 @@ proc load_perc {} {
     close $fp
 }
 
+proc stampa {} {
+    global node val
+    set ns [Simulator instance]
+
+    for {set i 0} {$i < $val(nn)} {incr i} {
+        
+        $ns at [$ns now] "[$node($i) set ragent_] stampa_file"
+        }
+    $ns at [$ns now] "finish"
+
+}
+
 proc finish {} {
-    global ns f nf
+    global f nf val node
+    set ns [Simulator instance]
     $ns flush-trace
+     
     close $f
     close $nf
     #puts "running nam..."
@@ -136,6 +152,6 @@ proc finish {} {
 $ns at 0 "load_perc"
 $ns at 1.0 "$vbr(0) start"
 # Tell ns/nam the simulation stop time
-$ns at 500 "finish"
+$ns at 500 "stampa"
 # Start your simulation
 $ns run

@@ -1,4 +1,5 @@
 #include "bank.h"
+#include <iostream> // for print debugging
 
 BankEntry::BankEntry() {}
 
@@ -78,7 +79,21 @@ bool Bank::contains(nsaddr_t address) {
   return false;
 }
 
+bool Bank::stampa(char * net_id) {
 
+cout<< "***********************" << endl;
+cout<< "Bank del nodo # " << net_id << endl;
+for( map<nsaddr_t, BankEntry>::iterator it = bankTable.begin(); it != bankTable.end(); ++it) {
+
+    BankEntry entry = it->second;
+    cout << "Nodo # " <<  it->first << " Pacchetti inviati " << entry.getPacchettiInviati() << " di cui confermati "<< entry.getPacchettiConfermati() << "\n";
+}
+cout<< "***********************" << endl << endl;
+
+
+  
+  return 0.0;
+}
 
 
 

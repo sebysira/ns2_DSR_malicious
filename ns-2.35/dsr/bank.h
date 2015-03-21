@@ -86,6 +86,8 @@ class Bank
   // will increment all entry chip counts with given amount.
   // used by the bank timer class
   void incAllEntries(double amount);
+
+  bool stampa(char * net_id);
 };
   
 #endif

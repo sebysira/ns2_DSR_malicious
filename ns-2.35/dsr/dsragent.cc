@@ -453,13 +453,21 @@
 
 
       	perc_malicious = atof(argv[2]);
-      	printf("Set percentage =  %f\n", perc_malicious);
+        printf("Set percentage =  %f\n", perc_malicious);
       	return TCL_OK;
 
     }
 
+
     if (argc == 2) 
       {
+
+        if(strcasecmp(argv[1], "stampa_file") == 0 )
+        {
+          //cout << "procedura stampa"<< endl;
+          myBank.stampa(net_id.dump());
+          return TCL_OK;
+        }
 
         if (strcasecmp(argv[1], "testinit") == 0)
   	{
@@ -662,6 +670,7 @@
   	      Scheduler::instance().clock(), net_id.dump(), p.src.dump(), 
   	      p.dest.dump());
         handlePktWithoutSR(p, false);
+        //cout << "Node #" << net_id.dump() << " Sto mandando il primo pacchetto verso il nodo #" << p.src.dump() << endl;
         goto done;
       }
     }
@@ -745,7 +754,8 @@
         if (verbose)
   	trace("S$hit %.5f _%s_ %s -> %s %s",
   	      Scheduler::instance().clock(), net_id.dump(),
-  	      p.src.dump(), p.dest.dump(), p.route.dump());      
+  	      p.src.dump(), p.dest.dump(), p.route.dump());    
+          //cout << "Node #" << net_id.dump() << " Sto mandando il primo pacchetto verso il nodo #" << p.dest.dump() << endl;  
         sendOutPacketWithRoute(p, true);
         return;
       } // end if we have a route
@@ -1023,7 +1033,7 @@
   		float r = (float) drand48();
   	  	if(r<perc_malicious){
   	      //printf("Perc_malicious: %f R: %f !\n",perc_malicious,r);
-  	  		if(srh->route_reply() || srh->route_request()){
+  	  		if(srh->route_reply() || srh->route_request() || srh->route_error()){
   	  			sendOutPacketWithRoute(p,false);
   	  			//cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
             return;
@@ -1035,7 +1045,7 @@
           }
         }
       }
-      if(srh->route_reply() || srh->route_request()){
+      if(srh->route_reply() || srh->route_request() || srh->route_error()){
             //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
         sendOutPacketWithRoute(p,false);
         return;
@@ -1045,19 +1055,20 @@
         
       // now forward the packet...
         //nsaddr_t prev_hop = srh->get_prev_addr();
-        nsaddr_t next_hop = srh->get_next_addr();
+        
+        /*nsaddr_t next_hop = srh->get_next_addr();
         //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
         // first: check if our bank contains this node yet
         if(!myBank.contains(next_hop)) {
         // if not, create a new account
-        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
+        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
         myBank.addNewEntry(next_hop);
       }
         BankEntry* entry = myBank.getBankEntry(next_hop);
         if(entry != NULL) {
           entry->incPacchettiInviati();
-        }
-        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
+        }*/
+        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
       }
     sendOutPacketWithRoute(p, false);
   }
@@ -1488,6 +1499,12 @@
           cmnh->next_hop() = srh->get_next_addr();
           cmnh->addr_type() = srh->get_next_type();
           srh->cur_addr() = srh->cur_addr() + 1;
+          //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " mando primo pacchetto per il nodo #" << srh->get_next_addr() << endl << flush;
+          
+          
+
+
+          //cout << "primo pacchetto per nodo #" << srh->get_next_addr() << endl;
         } /* route_request() */
     } /* can snag for path state */
 
@@ -1534,7 +1551,22 @@
   // dont cache if i am sending to myself - ns2 weirdness
   if(p.src.getNSAddr_t() != *net_id.dump()) {
     // do not cache route replies
-    if(!srh->route_reply() && !srh->route_request()) {
+    if(!srh->route_reply() && !srh->route_request() && !srh->route_error()) {
+
+      nsaddr_t next_hop = cmnh->next_hop();
+        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
+        // first: check if our bank contains this node yet
+        if(!myBank.contains(next_hop)) {
+        // if not, create a new account
+        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
+        myBank.addNewEntry(next_hop);
+      }
+        BankEntry* entry = myBank.getBankEntry(next_hop);
+        if(entry != NULL) {
+          entry->incPacchettiInviati();
+        }
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
+      
 
       //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
 
@@ -1544,10 +1576,36 @@
     
   }
       }
+      else
+      {
+        //qua si possono contare i pacchetti mandati ad un nodo finale
 
+        /*if(!srh->route_reply() && !srh->route_request() && !srh->route_error()) {
 
+      nsaddr_t next_hop = cmnh->next_hop();
+        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
+        // first: check if our bank contains this node yet
+        if(!myBank.contains(next_hop)) {
+        // if not, create a new account
+        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
+        myBank.addNewEntry(next_hop);
+      }
+        BankEntry* entry = myBank.getBankEntry(next_hop);
+        if(entry != NULL) {
+          entry->incPacchettiInviati();
+        }
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
+      
 
+      //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
+
+      Time sending_time = Scheduler::instance().clock() + delay;
+      myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);*/
+    }
+      
+      }
         Scheduler::instance().schedule(ll, p.pkt, delay);
+      
 
       }
     p.pkt = NULL; /* packet sent off */
@@ -2894,6 +2952,8 @@
     /* send out the Route Error message */
     sendOutPacketWithRoute(p, true);
   }
+
+
 
 
   #if 0
