@@ -36,10 +36,10 @@ void BankEntry::incPacchettiInviati() {
     pacchettiConfermati++;
   }
 
-  double BankEntry::getPacchettiInviati(){
+  int BankEntry::getPacchettiInviati(){
     return pacchettiInviati;
   }
-  double BankEntry::getPacchettiConfermati(){
+  int BankEntry::getPacchettiConfermati(){
     return pacchettiConfermati;
   }
   
@@ -79,20 +79,26 @@ bool Bank::contains(nsaddr_t address) {
   return false;
 }
 
-bool Bank::stampa(char * net_id) {
+void Bank::stampa(char * net_id) {
+    FILE * result;
+    result = fopen("result.txt", "a");
+    if(result==NULL) {
+      cout << "Error opening file." << endl;
+      return;
+    }
 
-cout<< "***********************" << endl;
-cout<< "Bank del nodo # " << net_id << endl;
-for( map<nsaddr_t, BankEntry>::iterator it = bankTable.begin(); it != bankTable.end(); ++it) {
+    fprintf(result, "***********************\n");
+    fprintf(result, "Result for node #%s\n\n", net_id);
 
-    BankEntry entry = it->second;
-    cout << "Nodo # " <<  it->first << " Pacchetti inviati " << entry.getPacchettiInviati() << " di cui confermati "<< entry.getPacchettiConfermati() << "\n";
-}
-cout<< "***********************" << endl << endl;
+    for( map<nsaddr_t, BankEntry>::iterator it = bankTable.begin(); it != bankTable.end(); ++it) {
 
+        BankEntry entry = it->second;
+        fprintf(result, "Node #%d: Packets sended = %d - Packets confirmed = %d\n", it->first, entry.getPacchettiInviati(), entry.getPacchettiConfermati());
+        //cout << "Nodo # " <<  it->first << " Pacchetti inviati " << entry.getPacchettiInviati() << " di cui confermati "<< entry.getPacchettiConfermati() << "\n";
+    }
+    fprintf(result, "***********************\n\n");
+    fclose(result);
 
-  
-  return 0.0;
 }
 
 

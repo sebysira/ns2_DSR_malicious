@@ -79,12 +79,12 @@ void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet, char * ne
       delete(sp);
       // secondly, if using the pessimistic scheme,
       // we increment their bank balance
-	if(!bank->contains(sender_address)) {
-	  bank->addNewEntry(sender_address);
-	}
-	//bank->incChipCount(sender_address);
+	   if(!bank->contains(sender_address)) {
+	     bank->addNewEntry(sender_address);
+	   }
+	   //bank->incChipCount(sender_address);
 
-	//cout << "  [" << Scheduler::instance().clock() << "] node #" << sender_address << " forwarded our packet. Removing it from our cache." << endl << flush;
+	   //cout << "  [" << Scheduler::instance().clock() << "] node #" << sender_address << " forwarded our packet. Removing it from our cache." << endl << flush;
 
 
       // since they forwarded our packet, we register a positive event
@@ -115,6 +115,6 @@ void Monitor::registerPositiveEvent(nsaddr_t address, char * net_id) {
 
     // increase the # of packets they have forwarded for us
     entry->incPacchettiConfermati();
-    cout << "[" << Scheduler::instance().clock() << "] node #" << net_id << " incrementa pacchetti confermati per il nodo #" << address << " :: incPacchettiConfermati = " << entry->getPacchettiConfermati() << endl << flush;  
+    //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id << " incrementa pacchetti confermati per il nodo #" << address << " :: incPacchettiConfermati = " << entry->getPacchettiConfermati() << endl << flush;  
   }
 }

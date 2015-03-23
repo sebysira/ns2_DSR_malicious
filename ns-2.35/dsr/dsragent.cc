@@ -1565,7 +1565,7 @@
         if(entry != NULL) {
           entry->incPacchettiInviati();
         }
-        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
+        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
       
 
       //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
@@ -1600,8 +1600,8 @@
       //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
 
       Time sending_time = Scheduler::instance().clock() + delay;
-      myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);*/
-    }
+      myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);
+    }*/
       
       }
         Scheduler::instance().schedule(ll, p.pkt, delay);
@@ -2190,8 +2190,12 @@
 
     // find out who is sending this packet
     nsaddr_t prev_hop = srh->get_prev_addr();
-    //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " is gona investigate tap'd packet from " << prev_hop << " " << endl << flush;
-    myMonitor.handleTap(prev_hop, packet, net_id.dump());
+
+    nsaddr_t prev_prev_hop = srh->get_prev_prev_addr();
+    
+    //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " is gona investigate tap'd packet from " << prev_hop << " Passo precedente # "<< prev_prev_hop << endl << flush;
+     if(prev_prev_hop == (atoi(net_id.dump())))
+        myMonitor.handleTap(prev_hop, packet, net_id.dump()); 
   }
 
     // don't trouble me with my own packets

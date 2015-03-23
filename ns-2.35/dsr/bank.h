@@ -20,8 +20,8 @@ class BankEntry
   // the amount of packets they have forwarded for us
   double theirForwardingCount;
 
-  double pacchettiInviati;
-  double pacchettiConfermati;
+  int pacchettiInviati;
+  int pacchettiConfermati;
 
  public:
   BankEntry();
@@ -43,8 +43,8 @@ class BankEntry
   void incPacchettiInviati();
   void incPacchettiConfermati();
 
-  double getPacchettiInviati();
-  double getPacchettiConfermati();
+  int getPacchettiInviati();
+  int getPacchettiConfermati();
 
 };
 
@@ -87,7 +87,7 @@ class Bank
   // used by the bank timer class
   void incAllEntries(double amount);
 
-  bool stampa(char * net_id);
+  void stampa(char * net_id);
 };
   
 #endif

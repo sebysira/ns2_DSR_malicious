@@ -251,6 +251,12 @@ public:
 	inline nsaddr_t& get_prev_addr() {
 	  return (addrs_[cur_addr_ - 1].addr);
 	}
+
+	inline nsaddr_t& get_prev_prev_addr() {
+	  if(cur_addr_ - 2 < 0)
+		return (addrs_[cur_addr_ - 1].addr);
+	  return (addrs_[cur_addr_ - 2].addr);
+	}
 	// end malicious
 
 	inline nsaddr_t& get_next_addr() { 
