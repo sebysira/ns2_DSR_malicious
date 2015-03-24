@@ -24,7 +24,7 @@ set val(ifq)            Queue/DropTail/PriQueue
 
 set val(x)	1000
 set val(y)	1000
-set val(nn)	15				   ;# number of nodes
+set val(nn)	30				   ;# number of nodes
 
 # Create simulator
 set ns [new Simulator]
@@ -69,31 +69,34 @@ $ns node-config -adhocRouting $val(rp) \
 # Create mobile nodes
 for {set i 0} {$i<$val(nn)} {incr i} {
 	set node($i) [$ns node]
+    set sum_confermati($i) 0.00
+    set sum_inviati($i) 0.00
 	# disable random motion for static network
 	$node($i) random-motion 1
 	$node($i) start
 }
 
-set source_node_list {0 5 10 3 7 9 13 12}
-set dest_node_list {1 6 11 4 8 10 14 0}
+set source_node_list {0 8 16 22 28}
+set dest_node_list {1 9 17 23 29}
 
 for {set i 0} {$i < [llength $source_node_list]} {incr i} {
+    #Create udp agent
     set udp($i) [new Agent/UDP]
-    set nabbo_tcl [lindex $source_node_list $i]
-    $ns attach-agent $node($nabbo_tcl) $udp($i)
+    set source [lindex $source_node_list $i]
+    $ns attach-agent $node($source) $udp($i)
 
     #create cbr
     set cbr($i) [new Application/Traffic/CBR]
     $cbr($i) set packetSize_ 512
-    $cbr($i) set interval_ 0.1
+    $cbr($i) set interval_ 0.25
     $cbr($i) set random_ 1
     $cbr($i) set maxpkts_ 100000
     $cbr($i) attach-agent $udp($i)
 
-    #Create a Null agent (a traffic sink) on node 4
+    #Create a Null agent (a traffic sink)
     set sink($i) [new Agent/LossMonitor]
-    set nabbo_tcl [lindex $dest_node_list $i]
-    $ns attach-agent $node($nabbo_tcl) $sink($i)
+    set dest [lindex $dest_node_list $i]
+    $ns attach-agent $node($dest) $sink($i)
 
     #Connet source and dest Agents
     $ns connect $udp($i) $sink($i)
@@ -119,18 +122,56 @@ proc load_perc {} {
     close $fp
 }
 
-proc stampa {} {
+proc print_result {} {
     global node val
     set ns [Simulator instance]
 
     close [open "result.txt" "w"]
+    close [open "valuation.txt" "w"]
 
-    for {set i 0} {$i < $val(nn)} {incr i} {
-        
+
+
+    for {set i 0} {$i < $val(nn)} {incr i} {    
         $ns at [$ns now] "[$node($i) set ragent_] stampa_file"
-        }
-    $ns at [$ns now] "finish"
+    }
+    
+    $ns at [$ns now] "nabbo"
+    
 
+}
+
+proc nabbo {} {
+    global sum_inviati sum_confermati val
+    set ns [Simulator instance]
+    set fp [open "valuation.txt" "r"]
+
+    while { [gets $fp line] >= 0 } {
+        #puts $line
+        set wordList [regexp -inline -all -- {\S+} $line]
+        lassign $wordList field1 field2 field3
+        #puts $field1
+        #puts $field2
+        #puts $field3
+        #incr number_valuation($field1)
+        set sum_inviati($field1) [expr $sum_inviati($field1) + $field2]
+        set sum_confermati($field1) [expr $sum_confermati($field1) + $field3]
+    }
+
+    close $fp
+    set fp [open "valuation.txt" "w"]
+
+    for {set i 0} {$i < $val(nn)} {incr i} { 
+        if {$sum_inviati($i) == 0} {
+            set valuation($i) -1
+        } else {
+            set valuation($i) [expr round((1 - $sum_confermati($i) / $sum_inviati($i)) * 100)] 
+        }
+        set valuation($i) [string map { . , } $valuation($i)]
+        puts $fp $valuation($i)
+    }
+
+    close $fp
+    $ns at [$ns now] "finish"
 }
 
 proc finish {} {
@@ -146,11 +187,12 @@ proc finish {} {
 }
 
 $ns at 0 "load_perc"
-$ns at 1.0 "$cbr(0) start"
-$ns at 1.0 "$cbr(1) start"
-$ns at 1.0 "$cbr(2) start"
+
+for {set i 0} {$i < [llength $source_node_list]} {incr i} {
+    $ns at 1.0 "$cbr($i) start"
+}
 
 # Tell ns/nam the simulation stop time
-$ns at 500 "stampa"
+$ns at 500 "print_result"
 # Start your simulation
 $ns run
