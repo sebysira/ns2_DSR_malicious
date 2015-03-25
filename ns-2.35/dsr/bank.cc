@@ -87,6 +87,13 @@ void Bank::stampa(char * net_id) {
       return;
     }
 
+    FILE * valuation;
+    valuation = fopen("valuation.txt", "a");
+    if(valuation==NULL) {
+      cout << "Error opening file." << endl;
+      return;
+    }
+
     fprintf(result, "***********************\n");
     fprintf(result, "Result for node #%s\n\n", net_id);
 
@@ -94,10 +101,12 @@ void Bank::stampa(char * net_id) {
 
         BankEntry entry = it->second;
         fprintf(result, "Node #%d: Packets sended = %d - Packets confirmed = %d\n", it->first, entry.getPacchettiInviati(), entry.getPacchettiConfermati());
-        //cout << "Nodo # " <<  it->first << " Pacchetti inviati " << entry.getPacchettiInviati() << " di cui confermati "<< entry.getPacchettiConfermati() << "\n";
+        //float percentage = (entry.getPacchettiConfermati() * 100.0) / entry.getPacchettiInviati();
+        fprintf(valuation, "%d %d %d\n", it->first, entry.getPacchettiInviati(), entry.getPacchettiConfermati());
     }
     fprintf(result, "***********************\n\n");
     fclose(result);
+    fclose(valuation);
 
 }
 
