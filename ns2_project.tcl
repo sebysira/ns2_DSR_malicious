@@ -9,7 +9,7 @@ set val(ifqlen)         500                         ;# max packets in ifq
 set val(rxPower)        0.2                      ;#  (in W)
 set val(txPower)        0.6                     ;#  (in W)
 set val(energymodel)    EnergyModel               ;# 
-set val(initialenergy)  200                       ;#  (in Joule)
+set val(initialenergy)  100                      ;#  (in Joule)
 set val(sleeppower)     0.02                      ;# energia consumata in stato di sleep
 set val(tp)             0.03                      ;# Energia consumata per la transizione dallo stato di sleep a quello di attivita'...
 #set val(ifq)            Queue/DropTail/PriQueue    ;# interface queue type
@@ -22,9 +22,9 @@ set val(ifq)            CMUPriQueue
 set val(ifq)            Queue/DropTail/PriQueue
 }
 
-set val(x)	1000
-set val(y)	1000
-set val(nn)	30				   ;# number of nodes
+set val(x)	1200
+set val(y)	1200
+set val(nn)	50				   ;# number of nodes
 
 # Create simulator
 set ns [new Simulator]
@@ -69,15 +69,15 @@ $ns node-config -adhocRouting $val(rp) \
 # Create mobile nodes
 for {set i 0} {$i<$val(nn)} {incr i} {
 	set node($i) [$ns node]
-    set sum_confermati($i) 0.00
-    set sum_inviati($i) 0.00
+    set sum_confirmed($i) 0.00
+    set sum_sended($i) 0.00
 	# disable random motion for static network
 	$node($i) random-motion 1
 	$node($i) start
 }
 
-set source_node_list {0 8 16 22 28}
-set dest_node_list {1 9 17 23 29}
+set source_node_list {0 7 17 27 37 47}
+set dest_node_list {1 8 18 28 38 48}
 
 for {set i 0} {$i < [llength $source_node_list]} {incr i} {
     #Create udp agent
@@ -88,7 +88,7 @@ for {set i 0} {$i < [llength $source_node_list]} {incr i} {
     #create cbr
     set cbr($i) [new Application/Traffic/CBR]
     $cbr($i) set packetSize_ 512
-    $cbr($i) set interval_ 0.25
+    $cbr($i) set interval_ 0.2
     $cbr($i) set random_ 1
     $cbr($i) set maxpkts_ 100000
     $cbr($i) attach-agent $udp($i)
@@ -102,12 +102,10 @@ for {set i 0} {$i < [llength $source_node_list]} {incr i} {
     $ns connect $udp($i) $sink($i)
 }
 
-
 # Define node initial position in nam
 for {set i 0} {$i < $val(nn)} {incr i} {
 	$ns initial_node_pos $node($i) 30
 }
-
 
 proc load_perc {} {
     global node val
@@ -129,42 +127,33 @@ proc print_result {} {
     close [open "result.txt" "w"]
     close [open "valuation.txt" "w"]
 
-
-
     for {set i 0} {$i < $val(nn)} {incr i} {    
-        $ns at [$ns now] "[$node($i) set ragent_] stampa_file"
+        $ns at [$ns now] "[$node($i) set ragent_] printResult"
     }
     
-    $ns at [$ns now] "nabbo"
-    
-
+    $ns at [$ns now] "print_final_result"
 }
 
-proc nabbo {} {
-    global sum_inviati sum_confermati val
+proc print_final_result {} {
+    global sum_sended sum_confirmed val
     set ns [Simulator instance]
     set fp [open "valuation.txt" "r"]
 
     while { [gets $fp line] >= 0 } {
-        #puts $line
         set wordList [regexp -inline -all -- {\S+} $line]
         lassign $wordList field1 field2 field3
-        #puts $field1
-        #puts $field2
-        #puts $field3
-        #incr number_valuation($field1)
-        set sum_inviati($field1) [expr $sum_inviati($field1) + $field2]
-        set sum_confermati($field1) [expr $sum_confermati($field1) + $field3]
+        set sum_sended($field1) [expr $sum_sended($field1) + $field2]
+        set sum_confirmed($field1) [expr $sum_confirmed($field1) + $field3]
     }
 
     close $fp
     set fp [open "valuation.txt" "w"]
 
     for {set i 0} {$i < $val(nn)} {incr i} { 
-        if {$sum_inviati($i) == 0} {
+        if {$sum_sended($i) == 0} {
             set valuation($i) -1
         } else {
-            set valuation($i) [expr round((1 - $sum_confermati($i) / $sum_inviati($i)) * 100)] 
+            set valuation($i) [expr round((1 - $sum_confirmed($i) / $sum_sended($i)) * 100)] 
         }
         set valuation($i) [string map { . , } $valuation($i)]
         puts $fp $valuation($i)

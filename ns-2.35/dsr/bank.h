@@ -12,16 +12,14 @@
 #include <list>
 #include <config.h> //included for nsaddr_t
 
+#define DEBUG_MALICIOUS false
+
 class BankEntry
 {
  private:
-  // the amount of packets we have forwarded for this node
-  double myForwardingCount;
-  // the amount of packets they have forwarded for us
-  double theirForwardingCount;
 
-  int pacchettiInviati;
-  int pacchettiConfermati;
+  int sendedPackets;
+  int confirmedPackets;
 
  public:
   BankEntry();
@@ -30,21 +28,15 @@ class BankEntry
   // rating value initRat
   BankEntry(double init, int initRat);
   // return the chip amount of this bank entry
- 
+
   // increment the # of packets I have forwarded for this node
-  void incMyForwardingCount();
+  void incSendedPackets();
   // increment the # of packets this node has forwarded for me
-  void incTheirForwardingCount();
+  void incConfirmedPackets();
   // get the # of packets I have forwarded for this node
-  double getMyForwardingCount();
+  int getSendedPackets();
   // get the # of packets this node has forwarded for me
-  double getTheirForwardingCount();
-
-  void incPacchettiInviati();
-  void incPacchettiConfermati();
-
-  int getPacchettiInviati();
-  int getPacchettiConfermati();
+  int getConfirmedPackets();
 
 };
 
@@ -74,20 +66,8 @@ class Bank
   // check if an entry already exists in this bank.
   // return true if it does, false if it does not
   bool contains(nsaddr_t address);
-  // increment a BankEntry's chip count
-  // return false if incrementing would put it over
-  // the maximum amount.
-  bool incChipCount(nsaddr_t address);
-  // decrement a BankEntry's chip count. Returns false if
-  // decrementing would put it under the minimum amount, zero.
-  bool decChipCount(nsaddr_t address);
-  // get the chip count of the BankEntry.
-  double getChipCount(nsaddr_t address);
-  // will increment all entry chip counts with given amount.
-  // used by the bank timer class
-  void incAllEntries(double amount);
-
-  void stampa(char * net_id);
+  // print bank to file
+  void printBank(char * net_id);
 };
   
 #endif

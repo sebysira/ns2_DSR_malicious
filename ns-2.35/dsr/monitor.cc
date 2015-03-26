@@ -19,7 +19,7 @@ int SentPacket::getSeqNo() { return trace->get_seqno(&packet); }
 
 Monitor::Monitor() {}
 
-Monitor::~Monitor() {delete &faultyList; delete &sentPacketTable; }
+Monitor::~Monitor() {delete &sentPacketTable; }
 
 Monitor::Monitor(Trace* t, Bank* b, RouteCache** r_c) { 
   trace = t; 
@@ -42,12 +42,9 @@ void Monitor::addPacketToCache(nsaddr_t address, Packet* packet, Time sending_ti
   // now add the new packet onto the end of this list
   list<SentPacket*>* l = sentPacketTable[address];
   l->push_back(new SentPacket(packet, sending_time, trace));
-  //cout << "  [" << Scheduler::instance().clock() << "] Adding packet to cache of node #" << address << ". cache size=" << l->size() << endl << flush;
-
-  
-  // if using optimistic scheme, increment the next hop's
-  // chipcount at this time (before they actually forward)
-  
+  if(DEBUG_MALICIOUS){
+    cout << "  [" << Scheduler::instance().clock() << "] Adding packet to cache of node #" << address << ". cache size=" << l->size() << endl << flush;
+  }
 }
 
 
@@ -60,7 +57,6 @@ void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet, char * ne
   // check that we have a cache of packets sent to this node,
   // hence we will be expecting them to forward our packets if they
   // require forwarding
-  //cout<< "****************medda trasi!*******************"<<endl;
   if(sentPacketTable.count(sender_address) == 0) {
     return;
   } 
@@ -79,14 +75,12 @@ void Monitor::handleTap(nsaddr_t sender_address, const Packet* packet, char * ne
       delete(sp);
       // secondly, if using the pessimistic scheme,
       // we increment their bank balance
-	   if(!bank->contains(sender_address)) {
-	     bank->addNewEntry(sender_address);
-	   }
-	   //bank->incChipCount(sender_address);
-
-	   //cout << "  [" << Scheduler::instance().clock() << "] node #" << sender_address << " forwarded our packet. Removing it from our cache." << endl << flush;
-
-
+	     if(!bank->contains(sender_address)) {
+	       bank->addNewEntry(sender_address);
+	     }
+       if(DEBUG_MALICIOUS){
+        cout << "  [" << Scheduler::instance().clock() << "] node #" << sender_address << " forwarded our packet. Removing it from our cache." << endl << flush;
+       }
       // since they forwarded our packet, we register a positive event
       registerPositiveEvent(sender_address, net_id);
     }    
@@ -104,17 +98,16 @@ void Monitor::checkPacketCache(nsaddr_t address) {
     SentPacket* sp = *iter;
     iter++;
     // first check if the cached packet's timeout has expired
-    
   }
 }
 
 void Monitor::registerPositiveEvent(nsaddr_t address, char * net_id) {
   BankEntry* entry = bank->getBankEntry(address);
   if(entry != NULL) {
-
-
     // increase the # of packets they have forwarded for us
-    entry->incPacchettiConfermati();
-    //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id << " incrementa pacchetti confermati per il nodo #" << address << " :: incPacchettiConfermati = " << entry->getPacchettiConfermati() << endl << flush;  
+    entry->incConfirmedPackets();
+    if(DEBUG_MALICIOUS){
+      cout << "[" << Scheduler::instance().clock() << "] node #" << net_id << " incConfirmedPackets for nodo #" << address << " :: confirmedPackets = " << entry->getConfirmedPackets() << endl << flush;  
+    }
   }
 }

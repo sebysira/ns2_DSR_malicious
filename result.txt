@@ -1,0 +1,595 @@
+***********************
+Result for node #0
+
+Node #2: Packets sended = 96 - Packets confirmed = 96
+Node #6: Packets sended = 11 - Packets confirmed = 5
+Node #19: Packets sended = 30 - Packets confirmed = 23
+Node #32: Packets sended = 275 - Packets confirmed = 266
+Node #33: Packets sended = 4 - Packets confirmed = 0
+Node #35: Packets sended = 50 - Packets confirmed = 43
+Node #39: Packets sended = 2 - Packets confirmed = 1
+Node #40: Packets sended = 279 - Packets confirmed = 274
+Node #41: Packets sended = 76 - Packets confirmed = 75
+Node #42: Packets sended = 223 - Packets confirmed = 212
+Node #47: Packets sended = 394 - Packets confirmed = 392
+Node #49: Packets sended = 4 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #1
+
+Node #4: Packets sended = 127 - Packets confirmed = 16
+Node #9: Packets sended = 5 - Packets confirmed = 5
+Node #10: Packets sended = 45 - Packets confirmed = 43
+Node #15: Packets sended = 2 - Packets confirmed = 2
+Node #17: Packets sended = 1 - Packets confirmed = 1
+Node #21: Packets sended = 190 - Packets confirmed = 190
+Node #36: Packets sended = 40 - Packets confirmed = 40
+Node #48: Packets sended = 173 - Packets confirmed = 171
+***********************
+
+***********************
+Result for node #2
+
+Node #24: Packets sended = 96 - Packets confirmed = 9
+Node #29: Packets sended = 4 - Packets confirmed = 3
+Node #33: Packets sended = 9 - Packets confirmed = 5
+Node #36: Packets sended = 94 - Packets confirmed = 84
+Node #47: Packets sended = 4 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #3
+
+Node #2: Packets sended = 97 - Packets confirmed = 96
+Node #6: Packets sended = 30 - Packets confirmed = 29
+Node #23: Packets sended = 4 - Packets confirmed = 3
+Node #33: Packets sended = 1 - Packets confirmed = 0
+Node #39: Packets sended = 1 - Packets confirmed = 1
+Node #40: Packets sended = 1 - Packets confirmed = 1
+Node #49: Packets sended = 1 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #4
+
+Node #2: Packets sended = 2 - Packets confirmed = 2
+Node #9: Packets sended = 3 - Packets confirmed = 1
+Node #10: Packets sended = 10 - Packets confirmed = 9
+Node #27: Packets sended = 1 - Packets confirmed = 0
+Node #48: Packets sended = 21 - Packets confirmed = 18
+***********************
+
+***********************
+Result for node #5
+
+Node #30: Packets sended = 4 - Packets confirmed = 4
+***********************
+
+***********************
+Result for node #6
+
+Node #0: Packets sended = 1 - Packets confirmed = 0
+Node #5: Packets sended = 4 - Packets confirmed = 4
+Node #14: Packets sended = 5 - Packets confirmed = 0
+Node #24: Packets sended = 8 - Packets confirmed = 0
+Node #30: Packets sended = 50 - Packets confirmed = 49
+Node #33: Packets sended = 3 - Packets confirmed = 3
+Node #36: Packets sended = 1 - Packets confirmed = 0
+Node #42: Packets sended = 2 - Packets confirmed = 0
+Node #43: Packets sended = 2 - Packets confirmed = 0
+Node #47: Packets sended = 4 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #7
+
+Node #1: Packets sended = 198 - Packets confirmed = 191
+Node #5: Packets sended = 5 - Packets confirmed = 0
+Node #9: Packets sended = 490 - Packets confirmed = 483
+Node #11: Packets sended = 4 - Packets confirmed = 3
+Node #12: Packets sended = 1 - Packets confirmed = 0
+Node #14: Packets sended = 405 - Packets confirmed = 39
+Node #17: Packets sended = 261 - Packets confirmed = 259
+Node #21: Packets sended = 61 - Packets confirmed = 61
+Node #22: Packets sended = 65 - Packets confirmed = 65
+Node #25: Packets sended = 5 - Packets confirmed = 3
+Node #28: Packets sended = 176 - Packets confirmed = 140
+Node #30: Packets sended = 1 - Packets confirmed = 0
+Node #31: Packets sended = 1 - Packets confirmed = 0
+Node #34: Packets sended = 241 - Packets confirmed = 21
+Node #36: Packets sended = 369 - Packets confirmed = 362
+Node #37: Packets sended = 159 - Packets confirmed = 145
+Node #45: Packets sended = 197 - Packets confirmed = 193
+Node #46: Packets sended = 55 - Packets confirmed = 53
+Node #47: Packets sended = 8 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #8
+
+***********************
+
+***********************
+Result for node #9
+
+Node #7: Packets sended = 3 - Packets confirmed = 3
+Node #10: Packets sended = 336 - Packets confirmed = 306
+Node #12: Packets sended = 32 - Packets confirmed = 32
+Node #14: Packets sended = 144 - Packets confirmed = 7
+Node #21: Packets sended = 483 - Packets confirmed = 483
+Node #28: Packets sended = 8 - Packets confirmed = 8
+Node #30: Packets sended = 1 - Packets confirmed = 0
+Node #31: Packets sended = 4 - Packets confirmed = 0
+Node #36: Packets sended = 243 - Packets confirmed = 237
+Node #37: Packets sended = 2 - Packets confirmed = 2
+Node #48: Packets sended = 112 - Packets confirmed = 111
+***********************
+
+***********************
+Result for node #10
+
+Node #15: Packets sended = 53 - Packets confirmed = 53
+Node #16: Packets sended = 34 - Packets confirmed = 27
+Node #21: Packets sended = 31 - Packets confirmed = 29
+Node #28: Packets sended = 1 - Packets confirmed = 1
+Node #30: Packets sended = 10 - Packets confirmed = 3
+Node #48: Packets sended = 376 - Packets confirmed = 344
+***********************
+
+***********************
+Result for node #11
+
+Node #7: Packets sended = 3 - Packets confirmed = 2
+Node #9: Packets sended = 3 - Packets confirmed = 2
+Node #12: Packets sended = 35 - Packets confirmed = 35
+Node #37: Packets sended = 2 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #12
+
+Node #5: Packets sended = 4 - Packets confirmed = 4
+Node #20: Packets sended = 1 - Packets confirmed = 1
+Node #29: Packets sended = 4 - Packets confirmed = 3
+***********************
+
+***********************
+Result for node #13
+
+Node #9: Packets sended = 5 - Packets confirmed = 2
+Node #14: Packets sended = 11 - Packets confirmed = 1
+Node #25: Packets sended = 125 - Packets confirmed = 123
+Node #26: Packets sended = 1 - Packets confirmed = 0
+Node #36: Packets sended = 1 - Packets confirmed = 0
+Node #37: Packets sended = 2 - Packets confirmed = 2
+Node #48: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #14
+
+Node #4: Packets sended = 18 - Packets confirmed = 0
+Node #7: Packets sended = 1 - Packets confirmed = 0
+Node #8: Packets sended = 1 - Packets confirmed = 0
+Node #12: Packets sended = 51 - Packets confirmed = 42
+Node #15: Packets sended = 1 - Packets confirmed = 1
+Node #21: Packets sended = 6 - Packets confirmed = 5
+Node #29: Packets sended = 16 - Packets confirmed = 14
+Node #30: Packets sended = 7 - Packets confirmed = 5
+Node #36: Packets sended = 9 - Packets confirmed = 9
+Node #45: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #15
+
+Node #4: Packets sended = 1 - Packets confirmed = 0
+Node #12: Packets sended = 195 - Packets confirmed = 156
+Node #20: Packets sended = 62 - Packets confirmed = 58
+Node #22: Packets sended = 2 - Packets confirmed = 1
+Node #29: Packets sended = 5 - Packets confirmed = 0
+Node #31: Packets sended = 117 - Packets confirmed = 93
+Node #44: Packets sended = 1 - Packets confirmed = 0
+Node #48: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #16
+
+Node #20: Packets sended = 26 - Packets confirmed = 23
+Node #25: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #17
+
+Node #4: Packets sended = 58 - Packets confirmed = 5
+Node #7: Packets sended = 531 - Packets confirmed = 502
+Node #9: Packets sended = 330 - Packets confirmed = 314
+Node #10: Packets sended = 1 - Packets confirmed = 1
+Node #14: Packets sended = 39 - Packets confirmed = 4
+Node #25: Packets sended = 58 - Packets confirmed = 35
+Node #28: Packets sended = 144 - Packets confirmed = 66
+Node #37: Packets sended = 95 - Packets confirmed = 95
+Node #42: Packets sended = 472 - Packets confirmed = 472
+***********************
+
+***********************
+Result for node #18
+
+Node #34: Packets sended = 2 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #19
+
+Node #0: Packets sended = 4 - Packets confirmed = 4
+Node #32: Packets sended = 8 - Packets confirmed = 4
+Node #34: Packets sended = 17 - Packets confirmed = 0
+Node #35: Packets sended = 14 - Packets confirmed = 14
+Node #42: Packets sended = 6 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #20
+
+Node #9: Packets sended = 1 - Packets confirmed = 1
+Node #12: Packets sended = 2 - Packets confirmed = 0
+Node #14: Packets sended = 195 - Packets confirmed = 19
+Node #21: Packets sended = 2 - Packets confirmed = 1
+Node #25: Packets sended = 46 - Packets confirmed = 22
+Node #29: Packets sended = 1 - Packets confirmed = 0
+Node #31: Packets sended = 1 - Packets confirmed = 0
+Node #37: Packets sended = 2 - Packets confirmed = 1
+Node #38: Packets sended = 28 - Packets confirmed = 24
+Node #44: Packets sended = 1 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #21
+
+Node #10: Packets sended = 75 - Packets confirmed = 75
+Node #14: Packets sended = 37 - Packets confirmed = 6
+Node #15: Packets sended = 312 - Packets confirmed = 293
+Node #20: Packets sended = 137 - Packets confirmed = 113
+Node #22: Packets sended = 1 - Packets confirmed = 1
+Node #30: Packets sended = 1 - Packets confirmed = 1
+Node #31: Packets sended = 1 - Packets confirmed = 0
+Node #36: Packets sended = 443 - Packets confirmed = 431
+Node #48: Packets sended = 3 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #22
+
+Node #14: Packets sended = 3 - Packets confirmed = 0
+Node #21: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #23
+
+Node #6: Packets sended = 3 - Packets confirmed = 2
+Node #49: Packets sended = 8 - Packets confirmed = 6
+***********************
+
+***********************
+Result for node #24
+
+Node #14: Packets sended = 14 - Packets confirmed = 2
+Node #36: Packets sended = 1 - Packets confirmed = 0
+Node #47: Packets sended = 1 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #25
+
+Node #1: Packets sended = 2 - Packets confirmed = 0
+Node #4: Packets sended = 99 - Packets confirmed = 12
+Node #12: Packets sended = 56 - Packets confirmed = 56
+Node #16: Packets sended = 2 - Packets confirmed = 1
+Node #17: Packets sended = 23 - Packets confirmed = 18
+Node #27: Packets sended = 2 - Packets confirmed = 2
+Node #31: Packets sended = 139 - Packets confirmed = 118
+Node #45: Packets sended = 7 - Packets confirmed = 6
+***********************
+
+***********************
+Result for node #26
+
+Node #37: Packets sended = 1 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #27
+
+Node #1: Packets sended = 3 - Packets confirmed = 0
+Node #4: Packets sended = 8 - Packets confirmed = 0
+Node #7: Packets sended = 3 - Packets confirmed = 3
+Node #9: Packets sended = 347 - Packets confirmed = 343
+Node #11: Packets sended = 2 - Packets confirmed = 0
+Node #15: Packets sended = 2 - Packets confirmed = 0
+Node #17: Packets sended = 318 - Packets confirmed = 291
+Node #18: Packets sended = 159 - Packets confirmed = 156
+Node #24: Packets sended = 101 - Packets confirmed = 0
+Node #25: Packets sended = 29 - Packets confirmed = 17
+Node #37: Packets sended = 319 - Packets confirmed = 317
+Node #42: Packets sended = 155 - Packets confirmed = 154
+Node #44: Packets sended = 23 - Packets confirmed = 0
+Node #45: Packets sended = 129 - Packets confirmed = 120
+Node #46: Packets sended = 1 - Packets confirmed = 0
+Node #47: Packets sended = 4 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #28
+
+Node #1: Packets sended = 14 - Packets confirmed = 14
+Node #7: Packets sended = 17 - Packets confirmed = 16
+Node #9: Packets sended = 139 - Packets confirmed = 116
+Node #10: Packets sended = 3 - Packets confirmed = 2
+Node #11: Packets sended = 1 - Packets confirmed = 0
+Node #17: Packets sended = 11 - Packets confirmed = 10
+Node #20: Packets sended = 1 - Packets confirmed = 1
+Node #21: Packets sended = 12 - Packets confirmed = 12
+Node #30: Packets sended = 1 - Packets confirmed = 1
+Node #37: Packets sended = 13 - Packets confirmed = 12
+Node #46: Packets sended = 243 - Packets confirmed = 218
+Node #48: Packets sended = 2 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #29
+
+Node #12: Packets sended = 15 - Packets confirmed = 15
+***********************
+
+***********************
+Result for node #30
+
+Node #5: Packets sended = 1 - Packets confirmed = 0
+Node #7: Packets sended = 3 - Packets confirmed = 0
+Node #9: Packets sended = 55 - Packets confirmed = 42
+Node #10: Packets sended = 68 - Packets confirmed = 56
+Node #14: Packets sended = 3 - Packets confirmed = 1
+Node #21: Packets sended = 205 - Packets confirmed = 190
+Node #32: Packets sended = 5 - Packets confirmed = 5
+Node #33: Packets sended = 12 - Packets confirmed = 6
+Node #36: Packets sended = 1 - Packets confirmed = 0
+Node #43: Packets sended = 3 - Packets confirmed = 3
+Node #47: Packets sended = 5 - Packets confirmed = 5
+***********************
+
+***********************
+Result for node #31
+
+Node #4: Packets sended = 1 - Packets confirmed = 0
+Node #7: Packets sended = 1 - Packets confirmed = 1
+Node #12: Packets sended = 1 - Packets confirmed = 0
+Node #29: Packets sended = 132 - Packets confirmed = 130
+Node #36: Packets sended = 3 - Packets confirmed = 3
+Node #38: Packets sended = 5 - Packets confirmed = 4
+***********************
+
+***********************
+Result for node #32
+
+Node #0: Packets sended = 58 - Packets confirmed = 36
+Node #19: Packets sended = 12 - Packets confirmed = 7
+Node #33: Packets sended = 121 - Packets confirmed = 114
+Node #35: Packets sended = 33 - Packets confirmed = 28
+Node #41: Packets sended = 1 - Packets confirmed = 1
+Node #42: Packets sended = 38 - Packets confirmed = 35
+Node #43: Packets sended = 200 - Packets confirmed = 199
+Node #47: Packets sended = 5 - Packets confirmed = 5
+***********************
+
+***********************
+Result for node #33
+
+Node #0: Packets sended = 4 - Packets confirmed = 4
+Node #2: Packets sended = 1 - Packets confirmed = 1
+Node #14: Packets sended = 105 - Packets confirmed = 5
+Node #24: Packets sended = 3 - Packets confirmed = 0
+Node #30: Packets sended = 79 - Packets confirmed = 69
+Node #32: Packets sended = 14 - Packets confirmed = 8
+Node #39: Packets sended = 3 - Packets confirmed = 2
+Node #42: Packets sended = 25 - Packets confirmed = 18
+Node #43: Packets sended = 5 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #34
+
+Node #2: Packets sended = 1 - Packets confirmed = 1
+Node #22: Packets sended = 6 - Packets confirmed = 6
+Node #29: Packets sended = 4 - Packets confirmed = 4
+***********************
+
+***********************
+Result for node #35
+
+Node #19: Packets sended = 1 - Packets confirmed = 1
+Node #34: Packets sended = 89 - Packets confirmed = 5
+***********************
+
+***********************
+Result for node #36
+
+Node #5: Packets sended = 196 - Packets confirmed = 195
+Node #7: Packets sended = 3 - Packets confirmed = 3
+Node #12: Packets sended = 7 - Packets confirmed = 5
+Node #15: Packets sended = 3 - Packets confirmed = 1
+Node #20: Packets sended = 132 - Packets confirmed = 113
+Node #21: Packets sended = 2 - Packets confirmed = 2
+Node #24: Packets sended = 108 - Packets confirmed = 7
+Node #26: Packets sended = 1 - Packets confirmed = 1
+Node #27: Packets sended = 3 - Packets confirmed = 3
+Node #29: Packets sended = 58 - Packets confirmed = 51
+Node #31: Packets sended = 4 - Packets confirmed = 1
+Node #38: Packets sended = 111 - Packets confirmed = 96
+Node #43: Packets sended = 4 - Packets confirmed = 0
+***********************
+
+***********************
+Result for node #37
+
+Node #1: Packets sended = 346 - Packets confirmed = 343
+Node #4: Packets sended = 15 - Packets confirmed = 4
+Node #7: Packets sended = 51 - Packets confirmed = 47
+Node #9: Packets sended = 459 - Packets confirmed = 452
+Node #11: Packets sended = 142 - Packets confirmed = 140
+Node #13: Packets sended = 182 - Packets confirmed = 177
+Node #14: Packets sended = 637 - Packets confirmed = 66
+Node #17: Packets sended = 256 - Packets confirmed = 253
+Node #20: Packets sended = 221 - Packets confirmed = 216
+Node #21: Packets sended = 39 - Packets confirmed = 37
+Node #22: Packets sended = 4 - Packets confirmed = 2
+Node #25: Packets sended = 66 - Packets confirmed = 64
+Node #27: Packets sended = 1 - Packets confirmed = 0
+Node #28: Packets sended = 155 - Packets confirmed = 141
+Node #45: Packets sended = 190 - Packets confirmed = 121
+Node #46: Packets sended = 55 - Packets confirmed = 55
+***********************
+
+***********************
+Result for node #38
+
+Node #12: Packets sended = 1 - Packets confirmed = 0
+Node #31: Packets sended = 2 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #39
+
+Node #0: Packets sended = 1 - Packets confirmed = 1
+Node #2: Packets sended = 9 - Packets confirmed = 8
+Node #6: Packets sended = 25 - Packets confirmed = 24
+Node #33: Packets sended = 42 - Packets confirmed = 42
+Node #41: Packets sended = 3 - Packets confirmed = 3
+Node #42: Packets sended = 3 - Packets confirmed = 1
+Node #49: Packets sended = 40 - Packets confirmed = 40
+***********************
+
+***********************
+Result for node #40
+
+Node #0: Packets sended = 1 - Packets confirmed = 1
+Node #3: Packets sended = 126 - Packets confirmed = 123
+Node #32: Packets sended = 83 - Packets confirmed = 81
+Node #39: Packets sended = 70 - Packets confirmed = 68
+***********************
+
+***********************
+Result for node #41
+
+Node #0: Packets sended = 3 - Packets confirmed = 3
+Node #3: Packets sended = 6 - Packets confirmed = 6
+Node #23: Packets sended = 6 - Packets confirmed = 6
+Node #32: Packets sended = 2 - Packets confirmed = 2
+Node #33: Packets sended = 18 - Packets confirmed = 17
+Node #39: Packets sended = 45 - Packets confirmed = 45
+***********************
+
+***********************
+Result for node #42
+
+Node #0: Packets sended = 1 - Packets confirmed = 0
+Node #18: Packets sended = 2 - Packets confirmed = 2
+Node #28: Packets sended = 4 - Packets confirmed = 0
+Node #30: Packets sended = 178 - Packets confirmed = 163
+Node #32: Packets sended = 100 - Packets confirmed = 71
+Node #33: Packets sended = 5 - Packets confirmed = 5
+Node #43: Packets sended = 253 - Packets confirmed = 250
+Node #46: Packets sended = 24 - Packets confirmed = 10
+Node #47: Packets sended = 1 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #43
+
+Node #4: Packets sended = 2 - Packets confirmed = 0
+Node #14: Packets sended = 2 - Packets confirmed = 0
+Node #21: Packets sended = 150 - Packets confirmed = 140
+Node #28: Packets sended = 155 - Packets confirmed = 155
+Node #30: Packets sended = 2 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #44
+
+Node #27: Packets sended = 2 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #45
+
+Node #1: Packets sended = 45 - Packets confirmed = 43
+Node #7: Packets sended = 104 - Packets confirmed = 101
+Node #9: Packets sended = 8 - Packets confirmed = 5
+Node #17: Packets sended = 63 - Packets confirmed = 60
+Node #20: Packets sended = 24 - Packets confirmed = 24
+Node #25: Packets sended = 31 - Packets confirmed = 15
+Node #27: Packets sended = 18 - Packets confirmed = 16
+Node #28: Packets sended = 1 - Packets confirmed = 0
+Node #34: Packets sended = 75 - Packets confirmed = 4
+Node #37: Packets sended = 20 - Packets confirmed = 19
+Node #46: Packets sended = 2 - Packets confirmed = 2
+***********************
+
+***********************
+Result for node #46
+
+Node #10: Packets sended = 82 - Packets confirmed = 82
+Node #21: Packets sended = 3 - Packets confirmed = 3
+Node #28: Packets sended = 16 - Packets confirmed = 13
+Node #42: Packets sended = 234 - Packets confirmed = 232
+Node #43: Packets sended = 2 - Packets confirmed = 1
+Node #48: Packets sended = 2 - Packets confirmed = 1
+***********************
+
+***********************
+Result for node #47
+
+Node #2: Packets sended = 292 - Packets confirmed = 281
+Node #5: Packets sended = 6 - Packets confirmed = 0
+Node #7: Packets sended = 6 - Packets confirmed = 6
+Node #10: Packets sended = 172 - Packets confirmed = 167
+Node #14: Packets sended = 378 - Packets confirmed = 34
+Node #15: Packets sended = 1 - Packets confirmed = 0
+Node #21: Packets sended = 1 - Packets confirmed = 0
+Node #24: Packets sended = 17 - Packets confirmed = 0
+Node #28: Packets sended = 2 - Packets confirmed = 0
+Node #30: Packets sended = 91 - Packets confirmed = 80
+Node #36: Packets sended = 316 - Packets confirmed = 310
+Node #42: Packets sended = 36 - Packets confirmed = 34
+Node #43: Packets sended = 160 - Packets confirmed = 144
+***********************
+
+***********************
+Result for node #48
+
+Node #9: Packets sended = 1 - Packets confirmed = 1
+Node #15: Packets sended = 194 - Packets confirmed = 182
+Node #17: Packets sended = 2 - Packets confirmed = 2
+Node #20: Packets sended = 45 - Packets confirmed = 35
+Node #31: Packets sended = 112 - Packets confirmed = 81
+Node #36: Packets sended = 337 - Packets confirmed = 259
+***********************
+
+***********************
+Result for node #49
+
+Node #0: Packets sended = 2 - Packets confirmed = 0
+Node #2: Packets sended = 1 - Packets confirmed = 1
+Node #3: Packets sended = 1 - Packets confirmed = 1
+Node #5: Packets sended = 1 - Packets confirmed = 0
+Node #6: Packets sended = 3 - Packets confirmed = 2
+Node #24: Packets sended = 39 - Packets confirmed = 2
+Node #30: Packets sended = 6 - Packets confirmed = 4
+Node #39: Packets sended = 1 - Packets confirmed = 1
+Node #42: Packets sended = 4 - Packets confirmed = 0
+Node #43: Packets sended = 1 - Packets confirmed = 0
+***********************
+

@@ -6,45 +6,25 @@ BankEntry::BankEntry() {}
 BankEntry::~BankEntry() {}
 
 BankEntry::BankEntry(double init, int initRat) {
-  myForwardingCount = 0;
-  theirForwardingCount = 0;
 
-  pacchettiInviati = 0;
-  pacchettiConfermati = 0;
+  sendedPackets = 0;
+  confirmedPackets = 0;
 }
 
-void BankEntry::incMyForwardingCount() {
-  myForwardingCount++;
+void BankEntry::incSendedPackets() {
+  sendedPackets++;
+}
+void BankEntry::incConfirmedPackets() {
+  confirmedPackets++;
 }
 
-void BankEntry::incTheirForwardingCount() {
-  theirForwardingCount++;
+int BankEntry::getSendedPackets(){
+  return sendedPackets;
 }
-
-double BankEntry::getMyForwardingCount() {
-  return myForwardingCount;
+int BankEntry::getConfirmedPackets(){
+  return confirmedPackets;
 }
-
-double BankEntry::getTheirForwardingCount() {
-  return theirForwardingCount;
-}
-
-void BankEntry::incPacchettiInviati() {
-  pacchettiInviati++;
-}
-  void BankEntry::incPacchettiConfermati() {
-    pacchettiConfermati++;
-  }
-
-  int BankEntry::getPacchettiInviati(){
-    return pacchettiInviati;
-  }
-  int BankEntry::getPacchettiConfermati(){
-    return pacchettiConfermati;
-  }
   
-
-
 Bank::Bank() {}
 
 Bank::~Bank() { delete &bankTable; }
@@ -79,7 +59,7 @@ bool Bank::contains(nsaddr_t address) {
   return false;
 }
 
-void Bank::stampa(char * net_id) {
+void Bank::printBank(char * net_id) {
     FILE * result;
     result = fopen("result.txt", "a");
     if(result==NULL) {
@@ -100,17 +80,11 @@ void Bank::stampa(char * net_id) {
     for( map<nsaddr_t, BankEntry>::iterator it = bankTable.begin(); it != bankTable.end(); ++it) {
 
         BankEntry entry = it->second;
-        fprintf(result, "Node #%d: Packets sended = %d - Packets confirmed = %d\n", it->first, entry.getPacchettiInviati(), entry.getPacchettiConfermati());
-        //float percentage = (entry.getPacchettiConfermati() * 100.0) / entry.getPacchettiInviati();
-        fprintf(valuation, "%d %d %d\n", it->first, entry.getPacchettiInviati(), entry.getPacchettiConfermati());
+        fprintf(result, "Node #%d: Packets sended = %d - Packets confirmed = %d\n", it->first, entry.getSendedPackets(), entry.getConfirmedPackets());
+        fprintf(valuation, "%d %d %d\n", it->first, entry.getSendedPackets(), entry.getConfirmedPackets());
     }
     fprintf(result, "***********************\n\n");
     fclose(result);
     fclose(valuation);
 
 }
-
-
-
-
-

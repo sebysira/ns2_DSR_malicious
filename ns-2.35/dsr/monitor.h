@@ -59,9 +59,6 @@ class Monitor
   // checks the cached packets to see if they have
   // timed out.
   void checkPacketCache(nsaddr_t address);
-  // a list of node addresses which this node considers
-  // to be faulty
-  list<nsaddr_t> faultyList;
 
  public:
   Monitor();
@@ -82,19 +79,6 @@ class Monitor
   // called when a positive event occurs, such as a neighbour
   // forwarding our traffic for us.
   void registerPositiveEvent(nsaddr_t address, char * net_id);
-  // called when a negative event occurs, such as a neighbour
-  // not forwarding our traffic
-  void registerNegativeEvent(nsaddr_t address);
-};
-
-class SecondChanceTimer : public TimerHandler {
- public:
-  SecondChanceTimer(Monitor* m, nsaddr_t addr) : TimerHandler() { monitor = m; node_address = addr; }
-  void expire(Event* e);
-
- protected:
-  Monitor* monitor;
-  nsaddr_t node_address;
 };
 
 #endif

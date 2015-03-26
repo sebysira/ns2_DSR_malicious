@@ -56,8 +56,13 @@
 
 class DSRAgent;
 
+// ******************** MALICIOUS ********************
+
 #include "bank.h"
 #include "monitor.h"
+
+// ******************** END MALICIOUS ********************
+
 #include "queue.h"
 #include <sstream>
 #include <fstream>
@@ -87,6 +92,12 @@ class DSRAgent;
 #define GRAT_ROUTE_ERROR 0	// tell_addr indicating a grat route err
 
 #define DSR_FILTER_TAP		/* process a packet only once via the tap */
+
+// ******************** MALICIOUS ********************
+
+#define DEBUG_MALICIOUS false
+
+// ******************** END MALICIOUS ********************
 
 class ArpCallbackClass;
 struct RtRepHoldoff {
@@ -141,9 +152,14 @@ private:
   int off_ip_;
   int off_sr_;
 
-	double perc_malicious;		//percentuale di essere cattivo
+
+  // ******************** MALICIOUS ********************
+
+	double perc_malicious;
   Bank myBank;
   Monitor myMonitor;
+
+  // ******************** END MALICIOUS ********************
 
   // will eventually need to handle multiple infs, but this is okay for
   // now 1/28/98 -dam

@@ -363,7 +363,11 @@
 
     route_cache = makeRouteCache();
 
-    perc_malicious=0;
+    // ******************** MALICIOUS ********************
+
+    perc_malicious = 0;
+
+    // ******************** END MALICIOUS ********************
 
     for (c = 0 ; c < RTREP_HOLDOFF_SIZE ; c++)
   	  rtrep_holdoff[c].requested_dest = invalid_addr;
@@ -448,26 +452,25 @@
   DSRAgent::command(int argc, const char*const* argv)
   {
     TclObject *obj;  
-  // settiamo la percentuale di essere cattivo
-    if (argc == 3 && strcmp(argv[1],"malicious")==0){
 
+  // ******************** MALICIOUS ********************
 
+    if (argc == 3 && strcmp(argv[1],"malicious")==0)
+    {
       	perc_malicious = atof(argv[2]);
-        printf("Set percentage =  %f\n", perc_malicious);
+        printf("Node #%s : set percentage %.2f\n", net_id.dump(), perc_malicious);
       	return TCL_OK;
-
     }
-
-
     if (argc == 2) 
       {
 
-        if(strcasecmp(argv[1], "stampa_file") == 0 )
+        if(strcasecmp(argv[1], "printResult") == 0 )
         {
-          //cout << "procedura stampa"<< endl;
-          myBank.stampa(net_id.dump());
+          myBank.printBank(net_id.dump());
           return TCL_OK;
         }
+
+  // ******************** END MALICIOUS ********************
 
         if (strcasecmp(argv[1], "testinit") == 0)
   	{
@@ -696,17 +699,6 @@
   	}
         else
   	{ // we're not the intended final recpt, but we're a hop
-  		/*if(perc_malicious>0){
-  		srand(time(NULL));
-  		float r = (float) drand48();
-  	  	if(r<perc_malicious){
-  	  	  //printf("Nodo %d: Sto droppando un pacchetto.\n", id_node);
-  	      drop(p.pkt, DROP_RTR_ROUTE_LOOP);
-          cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " selfishly dropped RREP packet received from node #" << srh->get_prev_addr() << endl << flush;
-  	      return;
-  	  	}
-  	  }*/
-  	  //printf("Nodo %d: Sto passando alla handle forwarding.\n", id_node);
   	  handleForwarding(p);
   	}
       }
@@ -1027,50 +1019,38 @@
       p.pkt = 0;
       return;
     }
-  	// se un numero random è < perc_malicious ,buttiamo il pacchetto
-  	if(perc_malicious>0){
+  	// ******************** MALICIOUS ********************
+
+  	if(perc_malicious > 0){
   		srand(time(NULL));
   		float r = (float) drand48();
-  	  	if(r<perc_malicious){
-  	      //printf("Perc_malicious: %f R: %f !\n",perc_malicious,r);
-  	  		if(srh->route_reply() || srh->route_request() || srh->route_error()){
-  	  			sendOutPacketWithRoute(p,false);
-  	  			//cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
-            return;
-  	  		}
-  	  		else{
-  	  			drop(p.pkt, DROP_RTR_ROUTE_LOOP);
-            //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " maliciously dropped packet received from node #" << srh->get_prev_addr() << endl << flush;
-            return;
+  	  if(r < perc_malicious){
+  	  	if(srh->route_reply() || srh->route_request() || srh->route_error()){
+  	  		sendOutPacketWithRoute(p,false);
+          if(DEBUG_MALICIOUS){
+            cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
           }
+          return;
+  	  	}
+  	  	else{
+  	  		drop(p.pkt, DROP_RTR_ROUTE_LOOP);
+          if (DEBUG_MALICIOUS){
+            cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " maliciously dropped packet received from node #" << srh->get_prev_addr() << endl << flush;
+          }
+            return;
         }
       }
-      if(srh->route_reply() || srh->route_request() || srh->route_error()){
-            //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
-        sendOutPacketWithRoute(p,false);
-        return;
-       }
-       else{
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " maliciously sended packet received from node #" << srh->get_prev_addr() << endl << flush;
-        
-      // now forward the packet...
-        //nsaddr_t prev_hop = srh->get_prev_addr();
-        
-        /*nsaddr_t next_hop = srh->get_next_addr();
-        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
-        // first: check if our bank contains this node yet
-        if(!myBank.contains(next_hop)) {
-        // if not, create a new account
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
-        myBank.addNewEntry(next_hop);
+    }
+    if(srh->route_reply() || srh->route_request() || srh->route_error()){
+      if(DEBUG_MALICIOUS){
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " route request or reply packet received from node #" << srh->get_prev_addr() << endl << flush;
       }
-        BankEntry* entry = myBank.getBankEntry(next_hop);
-        if(entry != NULL) {
-          entry->incPacchettiInviati();
-        }*/
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
-      }
+      sendOutPacketWithRoute(p,false);
+      return;
+    }
     sendOutPacketWithRoute(p, false);
+
+    // ******************** END MALICIOUS ********************
   }
 
   void
@@ -1499,12 +1479,6 @@
           cmnh->next_hop() = srh->get_next_addr();
           cmnh->addr_type() = srh->get_next_type();
           srh->cur_addr() = srh->cur_addr() + 1;
-          //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " mando primo pacchetto per il nodo #" << srh->get_next_addr() << endl << flush;
-          
-          
-
-
-          //cout << "primo pacchetto per nodo #" << srh->get_next_addr() << endl;
         } /* route_request() */
     } /* can snag for path state */
 
@@ -1547,66 +1521,42 @@
       }
     else
       { // no jitter required 
-          if(cmnh->next_hop() != (p.dest).getNSAddr_t()) {
-  // dont cache if i am sending to myself - ns2 weirdness
-  if(p.src.getNSAddr_t() != *net_id.dump()) {
-    // do not cache route replies
-    if(!srh->route_reply() && !srh->route_request() && !srh->route_error()) {
+        if(cmnh->next_hop() != (p.dest).getNSAddr_t()) {
+        // dont cache if i am sending to myself - ns2 weirdness
+          if(p.src.getNSAddr_t() != *net_id.dump()) {
+            // do not cache route replies
 
-      nsaddr_t next_hop = cmnh->next_hop();
-        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
-        // first: check if our bank contains this node yet
-        if(!myBank.contains(next_hop)) {
-        // if not, create a new account
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
-        myBank.addNewEntry(next_hop);
-      }
-        BankEntry* entry = myBank.getBankEntry(next_hop);
-        if(entry != NULL) {
-          entry->incPacchettiInviati();
+            // ******************** MALICIOUS *******************
+
+            if(!srh->route_reply() && !srh->route_request() && !srh->route_error()) {
+              nsaddr_t next_hop = cmnh->next_hop();
+              if(DEBUG_MALICIOUS){
+                cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " next hop #" << next_hop << endl;
+              }
+            // first: check if our bank contains this node yet
+              if(!myBank.contains(next_hop)){
+                //if not, create a new account 
+                if(DEBUG_MALICIOUS){
+                  cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
+                }
+                myBank.addNewEntry(next_hop);
+              }
+              BankEntry* entry = myBank.getBankEntry(next_hop);
+              if(entry != NULL) {
+                entry->incSendedPackets();
+              }
+              if(DEBUG_MALICIOUS){
+                cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
+              }
+              Time sending_time = Scheduler::instance().clock() + delay;
+              myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);
+            }
+          }
         }
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
-      
 
-      //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
+        // ******************** END MALICIOUS *******************
 
-      Time sending_time = Scheduler::instance().clock() + delay;
-      myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);
-    }
-    
-  }
-      }
-      else
-      {
-        //qua si possono contare i pacchetti mandati ad un nodo finale
-
-        /*if(!srh->route_reply() && !srh->route_request() && !srh->route_error()) {
-
-      nsaddr_t next_hop = cmnh->next_hop();
-        //cout << "****** next hop da " << net_id.dump() << " e' uguale a " << next_hop << endl;
-        // first: check if our bank contains this node yet
-        if(!myBank.contains(next_hop)) {
-        // if not, create a new account
-        //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " created new account for node #" << next_hop << endl << flush;
-        myBank.addNewEntry(next_hop);
-      }
-        BankEntry* entry = myBank.getBankEntry(next_hop);
-        if(entry != NULL) {
-          entry->incPacchettiInviati();
-        }
-        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " incrementato il # di pacchetti inviati al nodo #" << next_hop << " :: incPacchettiInviati = " << entry->getPacchettiInviati() << endl << flush;
-      
-
-      //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " about to cache packet heading to " << cmnh->next_hop() << " with sending delay=" << delay << endl << flush;
-
-      Time sending_time = Scheduler::instance().clock() + delay;
-      myMonitor.addPacketToCache(cmnh->next_hop(),p.pkt->copy(), sending_time);
-    }*/
-      
-      }
         Scheduler::instance().schedule(ll, p.pkt, delay);
-      
-
       }
     p.pkt = NULL; /* packet sent off */
   }
@@ -2186,17 +2136,22 @@
     p.dest = ID((Address::instance().get_nodeaddr(iph->daddr())),::IP);
     p.src = ID((Address::instance().get_nodeaddr(iph->saddr())),::IP);
 
-    if(!srh->route_request() && !srh->route_reply() && !srh->route_error()) {
+    // ********************  MALICIOUS *******************
 
-    // find out who is sending this packet
-    nsaddr_t prev_hop = srh->get_prev_addr();
+    if(!srh->route_request() && !srh->route_reply() && !srh->route_error()) 
+    {
+      // find out who is sending this packet
+      nsaddr_t prev_hop = srh->get_prev_addr();
+      nsaddr_t prev_prev_hop = srh->get_prev_prev_addr();
 
-    nsaddr_t prev_prev_hop = srh->get_prev_prev_addr();
-    
-    //cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " is gona investigate tap'd packet from " << prev_hop << " Passo precedente # "<< prev_prev_hop << endl << flush;
-     if(prev_prev_hop == (atoi(net_id.dump())))
+      if(DEBUG_MALICIOUS){
+        cout << "[" << Scheduler::instance().clock() << "] node #" << net_id.dump() << " is gona investigate tap'd packet from " << prev_hop << " Previous hop # "<< prev_prev_hop << endl << flush;
+      }
+      if(prev_prev_hop == (atoi(net_id.dump())))
         myMonitor.handleTap(prev_hop, packet, net_id.dump()); 
-  }
+    }
+
+    // ********************  END MALICIOUS *******************
 
     // don't trouble me with my own packets
     if (p.src == net_id) return; 
