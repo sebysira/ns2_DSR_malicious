@@ -24,5 +24,6 @@ Install
 - Run ./configure in your ns-allinone-2.35 directory 
 - Run make depend in ns-allinone-2.35
 - Run make
+- Run sudo make install
 - Run dsr_malicious.tcl with ns command
 
