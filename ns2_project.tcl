@@ -24,7 +24,7 @@ set val(ifq)            Queue/DropTail/PriQueue
 
 set val(x)	1200
 set val(y)	1200
-set val(nn)	50				   ;# number of nodes
+set val(nn)	20				   ;# number of nodes
 
 # Create simulator
 set ns [new Simulator]
@@ -76,8 +76,8 @@ for {set i 0} {$i<$val(nn)} {incr i} {
 	$node($i) start
 }
 
-set source_node_list {0 7 17 27 37 47}
-set dest_node_list {1 8 18 28 38 48}
+set source_node_list {0 2 4 6 8 10 12 14 16 18}
+set dest_node_list {1 3 5 7 9 11 13 15 17 19}
 
 for {set i 0} {$i < [llength $source_node_list]} {incr i} {
     #Create udp agent
